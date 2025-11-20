@@ -2,6 +2,21 @@ import https from "node:https";
 import { URLSearchParams } from "node:url";
 import notificationKit from "./notification-kit.js";
 
+function logError(context, error, extra = {}) {
+  console.error(
+    `[visit][${context}]`,
+    JSON.stringify(
+      {
+        message: error?.message,
+        stack: error?.stack,
+        ...extra,
+      },
+      null,
+      2,
+    ),
+  );
+}
+
 /**
  * 发起 HTTPS 请求并返回响应信息。
  */
@@ -19,7 +34,14 @@ function httpRequest(options, body) {
       });
     });
 
-    req.on("error", reject);
+    req.on("error", (error) => {
+      logError("httpRequest", error, {
+        hostname: options?.hostname,
+        path: options?.path,
+        method: options?.method,
+      });
+      reject(error);
+    });
 
     if (body) {
       req.write(body);
@@ -72,7 +94,16 @@ async function main() {
     },
   };
 
-  const getResponse = await httpRequest(getOptions);
+  let getResponse;
+  try {
+    getResponse = await httpRequest(getOptions);
+  } catch (error) {
+    logError("GET 请求失败", error, {
+      hostname: getOptions.hostname,
+      path: getOptions.path,
+    });
+    throw error;
+  }
   const cookies = parseCookies(getResponse.headers["set-cookie"]);
 
   console.log("GET status:", getResponse.statusCode);
@@ -125,8 +156,23 @@ async function main() {
       Cookie: cookieHeader,
     },
   };
+  try {
+    
+  } catch (error) {
+    
+  }
 
-  const postResponse = await httpRequest(postOptions, body);
+  let postResponse;
+  try {
+    postResponse = await httpRequest(postOptions, body);
+  } catch (error) {
+    logError("POST 请求失败", error, {
+      hostname: postOptions.hostname,
+      path: postOptions.path,
+      payloadPreview: body.slice(0, 200),
+    });
+    throw error;
+  }
   const responseText = postResponse.body.toString("utf8");
 
   console.log("POST status:", postResponse.statusCode);
