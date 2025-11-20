@@ -1,0 +1,20 @@
+{
+  "name": "visit-helper",
+  "version": "1.0.0",
+  "description": "自动提交来访预约并推送执行结果",
+  "type": "module",
+  "main": "visit.js",
+  "scripts": {
+    "start": "node visit.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/jeffreyma/visit-helper",
+  "releases_url": "https://api.github.com/repos/jeffreyma/visit-helper/releases",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "nodemailer": "^7.0.10"
+  },
+  "packageManager": "pnpm@10.19.0+sha512.c9fc7236e92adf5c8af42fd5bf1612df99c2ceb62f27047032f4720b33f8eacdde311865e91c411f2774f618d82f320808ecb51718bfa82c060c4ba7c76a32b8"
+}
