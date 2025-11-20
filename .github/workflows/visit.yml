@@ -37,11 +37,11 @@ jobs:
           fi
 
           random_seconds=$(python - <<'PY'
-import random, sys
-upper = int(sys.argv[1])
-print(random.randint(0, upper))
-PY
-"$upper")
+            import random, sys
+            upper = int(sys.argv[1])
+            print(random.randint(0, upper))
+            PY
+            "$upper")
 
           echo "随机等待 ${random_seconds} 秒"
           echo "seconds=${random_seconds}" >> "$GITHUB_OUTPUT"
