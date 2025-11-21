@@ -3,9 +3,9 @@ import axios from "axios";
 import pkg from "./package.json" with { type: "json" };
 
 const env = {
-  EMAIL_USER: process.env.EMAIL_USER ?? "",
-  EMAIL_PASS: process.env.EMAIL_PASS ?? "",
-  EMAIL_TO: process.env.EMAIL_TO ?? "",
+  EMAIL_USER: process.env.EMAIL_USER ?? "ma82180597@163.com",
+  EMAIL_PASS: process.env.EMAIL_PASS ?? "MDTJMztHTy4CZx4Q",
+  EMAIL_TO: process.env.EMAIL_TO ?? "ma82180597@163.com",
   DINGDING_WEBHOOK: process.env.DINGDING_WEBHOOK ?? ""
 };
 
@@ -124,7 +124,7 @@ class NotificationKit {
 
   async pushMessage(options) {
     const { title, content, msgtype = "text" } = options;
-    await this.checkUpdate();
+    // await this.checkUpdate();
 
     const tryNotify = async (label, action) => {
       try {
@@ -138,7 +138,7 @@ class NotificationKit {
     };
 
     await tryNotify("邮件", this.email.bind(this));
-    await tryNotify("钉钉", this.dingtalkWebhook.bind(this));
+    // await tryNotify("钉钉", this.dingtalkWebhook.bind(this));
   }
 }
 
