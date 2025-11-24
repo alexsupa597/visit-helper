@@ -175,6 +175,11 @@ async function main() {
   const shanghaiHours = new Date(shanghaiMillis).getUTCHours();
   const timePeriod = shanghaiHours < 12 ? '1' : '2';
 
+  console.log(now.getDate(), 'now*****');
+  console.log(now.toLocaleString(), 'now*****');
+  console.log(now.toLocaleDateString(), 'now*****');
+  console.log(now.toLocaleTimeString(), 'now*****');
+  console.log(now.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }), 'now*****');
   console.log(cookies, 'cookies*****');
 
   const formData = new URLSearchParams({
