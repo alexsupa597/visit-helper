@@ -175,6 +175,8 @@ async function main() {
   const shanghaiHours = new Date(shanghaiMillis).getUTCHours();
   const timePeriod = shanghaiHours < 12 ? '1' : '2';
 
+  console.log(cookies, 'cookies*****');
+
   const formData = new URLSearchParams({
     campus: '闵行校区',
     time: timePeriod,
